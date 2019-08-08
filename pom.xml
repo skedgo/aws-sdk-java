@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.amazonaws</groupId>
   <artifactId>aws-java-sdk-pom</artifactId>
-  <version>1.11.607-SNAPSHOT</version>
+  <version>1.11.607-dynamodb-polymorphism</version>
   <packaging>pom</packaging>
   <name>AWS SDK for Java</name>
   <description>The Amazon Web Services SDK for Java provides Java APIs
@@ -320,6 +320,12 @@
       </plugins>
     </pluginManagement>
   </build>
+  <distributionManagement>
+    <repository>
+        <id>internal</id>
+        <url>file:///Users/mariano/Work/SkedGo/maven</url>
+    </repository>
+</distributionManagement>
   <profiles>
     <profile>
       <id>publishing</id>
